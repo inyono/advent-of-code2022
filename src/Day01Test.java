@@ -21,7 +21,6 @@ class Day01Test {
             
             10000""";
 
-
     @Test
     void solvePart1() {
         Day01 day01 = new Day01(new StringReader(example));

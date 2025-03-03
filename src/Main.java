@@ -19,6 +19,7 @@ public class Main {
             File file = new File("inputs/day02.txt");
             Day02 day02 = new Day02(new FileReader(file));
             System.out.println("Part 1: " + day02.solvePart1());
+            System.out.println("Part 2: " + day02.solvePart2());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

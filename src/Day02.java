@@ -21,22 +21,55 @@ public class Day02 {
             Sign.PAPER, 2,
             Sign.SCISSORS, 3
     );
-    protected ArrayList<Sign[]> matches;
-
+    protected ArrayList<Input> inputs;
     public Day02(Readable input) {
-        this.matches = parseMatches(input);
+        this.inputs = parseMatches(input);
     }
 
     public int solvePart1() {
         int result = 0;
-        for (Sign[] match : matches) {
-            Sign opponentSign = match[0];
-            Sign ownSign = match[1];
+        for (Input input : inputs) {
+            Sign opponentSign = opponentToSign.get(input.opponent);
+            Sign ownSign = ownToSign.get(input.own);
             result += signToScore.get(ownSign);
             if (isDraw(opponentSign, ownSign)) {
                 result += 3;
             } else if (isWin(opponentSign, ownSign)) {
                 result += 6;
+            }
+        }
+        return result;
+    }
+
+    public int solvePart2() {
+        int result = 0;
+        for (Input input : inputs) {
+            Sign opponentSign = opponentToSign.get(input.opponent);
+            switch (input.own) {
+                // Lose
+                case 'X' -> {
+                    Sign ownSign = switch (opponentSign) {
+                        case ROCK -> Sign.SCISSORS;
+                        case PAPER -> Sign.ROCK;
+                        case SCISSORS -> Sign.PAPER;
+                    };
+                    result += signToScore.get(ownSign);
+                }
+                // Draw
+                case 'Y' -> {
+                    result += 3;
+                    result += signToScore.get(opponentSign);
+                }
+                // Win
+                case 'Z' -> {
+                    result += 6;
+                    Sign ownSign = switch (opponentSign) {
+                        case ROCK -> Sign.PAPER;
+                        case PAPER -> Sign.SCISSORS;
+                        case SCISSORS -> Sign.ROCK;
+                    };
+                    result += signToScore.get(ownSign);
+                }
             }
         }
         return result;
@@ -54,18 +87,28 @@ public class Day02 {
         );
     }
 
-    protected ArrayList<Sign[]> parseMatches(Readable input) {
+    protected ArrayList<Input> parseMatches(Readable input) {
         Scanner scanner = new Scanner(input);
-        ArrayList<Sign[]> result = new ArrayList<>();
+        ArrayList<Input> result = new ArrayList<>();
         while (scanner.hasNext()) {
             Character opponent = scanner.next().charAt(0);
             Character own = scanner.next().charAt(0);
-            result.add(new Sign[]{opponentToSign.get(opponent), ownToSign.get(own)});
+            result.add(new Input(opponent, own));
         }
         return result;
     }
 
     protected enum Sign {
         ROCK, PAPER, SCISSORS
+    }
+
+    protected class Input {
+        public final Character opponent;
+        public final Character own;
+
+        public Input(Character opponent, Character own) {
+            this.opponent = opponent;
+            this.own = own;
+        }
     }
 }

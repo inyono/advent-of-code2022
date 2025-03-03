@@ -15,4 +15,10 @@ class Day02Test {
         Day02 day02 = new Day02(new StringReader(example));
         assertEquals(15, day02.solvePart1());
     }
+
+    @Test
+    void solvePart2() {
+        Day02 day02 = new Day02(new StringReader(example));
+        assertEquals(12, day02.solvePart2());
+    }
 }
