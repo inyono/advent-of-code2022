@@ -13,5 +13,14 @@ public class Main {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("--- Day 2: Rock Paper Scissors ---");
+        try {
+            File file = new File("inputs/day02.txt");
+            Day02 day02 = new Day02(new FileReader(file));
+            System.out.println("Part 1: " + day02.solvePart1());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
