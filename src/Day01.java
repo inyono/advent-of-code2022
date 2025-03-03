@@ -3,14 +3,21 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
+/**
+ * @see <a href="https://adventofcode.com/2022/day/1">Day 1: Calorie Counting</a>
+ */
 public class Day01 {
-    public int solvePart1(Scanner scanner) {
-        ArrayList<Integer> calories = parseCalories(scanner);
+    protected ArrayList<Integer> calories;
+
+    public Day01(Readable input) {
+        this.calories = parseCalories(input);
+    }
+
+    public int solvePart1() {
         return Collections.max(calories);
     }
 
-    public int solvePart2(Scanner scanner) {
-        ArrayList<Integer> calories = parseCalories(scanner);
+    public int solvePart2() {
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(4);
         calories.forEach(n -> {
             minHeap.add(n);
@@ -21,7 +28,8 @@ public class Day01 {
         return minHeap.stream().mapToInt(Integer::intValue).sum();
     }
 
-    protected ArrayList<Integer> parseCalories(Scanner scanner) {
+    protected ArrayList<Integer> parseCalories(Readable input) {
+        Scanner scanner = new Scanner(input);
         ArrayList<Integer> result = new ArrayList<>();
         int acc = 0;
         // This flag ensures that the last group is parsed even if it is not followed by a blank line
