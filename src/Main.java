@@ -23,5 +23,14 @@ public class Main {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("--- Day 3: Rucksack Reorganization ---");
+        try {
+            File file = new File("inputs/day03.txt");
+            Day03 day03 = new Day03(new FileReader(file));
+            System.out.println("Part 1: " + day03.solvePart1());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
