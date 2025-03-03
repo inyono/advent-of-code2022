@@ -7,15 +7,15 @@ import java.util.Set;
  * @see <a href="https://adventofcode.com/2022/day/3">Day 3: Rucksack Reorganization</a>
  */
 public class Day03 {
-    protected final ArrayList<String> ruckSacks;
+    protected final ArrayList<String> rucksacks;
 
     public Day03(Readable input) {
-        this.ruckSacks = parseRucksacks(input);
+        this.rucksacks = parseRucksacks(input);
     }
 
     public int solvePart1() {
         int result = 0;
-        for (String knapsack : ruckSacks) {
+        for (String knapsack : rucksacks) {
             int left = 0;
             int right = knapsack.length() - 1;
             Set<Character> setLeft = new HashSet<>();
@@ -34,6 +34,27 @@ public class Day03 {
                 }
                 ++left;
                 --right;
+            }
+        }
+        return result;
+    }
+
+    public int solvePart2() {
+        int result = 0;
+        for (int i = 0; i < rucksacks.size(); i += 3) {
+            ArrayList<Set<Character>> rucksackSets = new ArrayList<>(3);
+            for (int j = 0; j < 3; j++) {
+                HashSet<Character> content = new HashSet<>();
+                String rucksack = this.rucksacks.get(i + j);
+                for (char ch : rucksack.toCharArray()) {
+                    content.add(ch);
+                }
+                rucksackSets.add(content);
+            }
+            rucksackSets.getFirst().retainAll(rucksackSets.get(1));
+            rucksackSets.getFirst().retainAll(rucksackSets.get(2));
+            if (!rucksackSets.getFirst().isEmpty()) {
+                result += getPriority(rucksackSets.getFirst().iterator().next());
             }
         }
         return result;
