@@ -1,13 +1,10 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @see <a href="https://adventofcode.com/2022/day/1">Day 1: Calorie Counting</a>
  */
 public class Day01 {
-    protected final ArrayList<Integer> calories;
+    protected final List<Integer> calories;
 
     public Day01(Readable input) {
         this.calories = parseCalories(input);
@@ -28,26 +25,23 @@ public class Day01 {
         return minHeap.stream().mapToInt(Integer::intValue).sum();
     }
 
-    protected ArrayList<Integer> parseCalories(Readable input) {
-        Scanner scanner = new Scanner(input);
-        ArrayList<Integer> result = new ArrayList<>();
-        int acc = 0;
-        // This flag ensures that the last group is parsed even if it is not followed by a blank line
-        boolean dirty = false;
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            if (line.isBlank()) {
-                result.add(acc);
-                acc = 0;
-                dirty = false;
-            } else {
-                acc += Integer.parseInt(line);
-                dirty = true;
+    protected List<Integer> parseCalories(Readable input) {
+        try (Scanner scanner = new Scanner(input)) {
+            ArrayList<Integer> result = new ArrayList<>();
+            int acc = 0;
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.isBlank()) {
+                    result.add(acc);
+                    acc = 0;
+                } else {
+                    acc += Integer.parseInt(line);
+                }
             }
+            if (acc > 0) {
+                result.add(acc);
+            }
+            return Collections.unmodifiableList(result);
         }
-        if (dirty) {
-            result.add(acc);
-        }
-        return result;
     }
 }
