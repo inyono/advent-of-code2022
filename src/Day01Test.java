@@ -5,7 +5,7 @@ import java.io.StringReader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day01Test {
-    String example = """
+    final String example = """
             1000
             2000
             3000

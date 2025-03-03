@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @see <a href="https://adventofcode.com/2022/day/1">Day 1: Calorie Counting</a>
  */
 public class Day01 {
-    protected ArrayList<Integer> calories;
+    protected final ArrayList<Integer> calories;
 
     public Day01(Readable input) {
         this.calories = parseCalories(input);

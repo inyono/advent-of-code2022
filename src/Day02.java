@@ -21,7 +21,8 @@ public class Day02 {
             Sign.PAPER, 2,
             Sign.SCISSORS, 3
     );
-    protected ArrayList<Input> inputs;
+    protected final ArrayList<Input> inputs;
+
     public Day02(Readable input) {
         this.inputs = parseMatches(input);
     }
@@ -102,13 +103,6 @@ public class Day02 {
         ROCK, PAPER, SCISSORS
     }
 
-    protected class Input {
-        public final Character opponent;
-        public final Character own;
-
-        public Input(Character opponent, Character own) {
-            this.opponent = opponent;
-            this.own = own;
-        }
+    protected record Input(Character opponent, Character own) {
     }
 }

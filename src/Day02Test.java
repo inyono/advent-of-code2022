@@ -5,7 +5,7 @@ import java.io.StringReader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day02Test {
-    String example = """
+    final String example = """
             A Y
             B X
             C Z""";
