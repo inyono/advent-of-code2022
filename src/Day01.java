@@ -11,6 +11,7 @@ public class Day01 {
     }
 
     public int solvePart1() {
+        if (calories.isEmpty()) return 0;
         return Collections.max(calories);
     }
 

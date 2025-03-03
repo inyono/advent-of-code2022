@@ -32,4 +32,11 @@ class Day01Test {
         Day01 day01 = new Day01(new StringReader(example));
         assertEquals(45000, day01.solvePart2());
     }
+
+    @Test
+    void emptyInput() {
+        Day01 day01 = new Day01(new StringReader(""));
+        assertEquals(0, day01.solvePart1());
+        assertEquals(0, day01.solvePart2());
+    }
 }
