@@ -1,9 +1,10 @@
+import java.io.Reader;
 import java.util.*;
 
 /**
  * @see <a href="https://adventofcode.com/2022/day/2">Day 2: Rock Paper Scissors</a>
  */
-public class Day02 {
+public class Day02 implements Day<Integer> {
     protected static final Map<Character, Sign> opponentToSign = Map.of(
             'A', Sign.ROCK,
             'B', Sign.PAPER,
@@ -16,11 +17,16 @@ public class Day02 {
     );
     protected final List<Input> inputs;
 
-    public Day02(Readable input) {
-        this.inputs = parseMatches(input);
+    public Day02(Reader reader) {
+        this.inputs = parseMatches(reader);
     }
 
-    public int solvePart1() {
+    @Override
+    public String getTitle() {
+        return "Rock Paper Scissors";
+    }
+
+    public Integer solvePart1() {
         int result = 0;
         for (Input input : inputs) {
             Sign opponentSign = opponentToSign.get(input.opponent);
@@ -31,7 +37,7 @@ public class Day02 {
         return result;
     }
 
-    public int solvePart2() {
+    public Integer solvePart2() {
         int result = 0;
         for (Input input : inputs) {
             Sign opponentSign = opponentToSign.get(input.opponent);
@@ -43,8 +49,8 @@ public class Day02 {
         return result;
     }
 
-    protected List<Input> parseMatches(Readable input) {
-        try (Scanner scanner = new Scanner(input)) {
+    protected List<Input> parseMatches(Reader reader) {
+        try (Scanner scanner = new Scanner(reader)) {
             ArrayList<Input> result = new ArrayList<>();
             while (scanner.hasNext()) {
                 Character opponent = scanner.next().charAt(0);
@@ -103,7 +109,6 @@ public class Day02 {
                         ownSign == Sign.SCISSORS && opponentSign == Sign.PAPER
         );
     }
-
 
     protected enum Sign {
         ROCK(1), PAPER(2), SCISSORS(3);

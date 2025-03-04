@@ -1,3 +1,4 @@
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -6,24 +7,31 @@ import java.util.Scanner;
 /**
  * @see <a href="https://adventofcode.com/2022/day/4">Day 4: Camp Cleanup</a>
  */
-public class Day04 {
+public class Day04 implements Day<Integer> {
     protected final List<IntervalPair> pairs;
 
-    public Day04(Readable input) {
-        this.pairs = parseIntervals(input);
+    public Day04(Reader reader) {
+        this.pairs = parseIntervals(reader);
     }
 
-    public int solvePart1() {
+    @Override
+    public String getTitle() {
+        return "Camp Cleanup";
+    }
+
+    @Override
+    public Integer solvePart1() {
         return Math.toIntExact(this.pairs.stream().filter(IntervalPair::containsRedundantInterval).count());
     }
 
-    public int solvePart2() {
+    @Override
+    public Integer solvePart2() {
         return Math.toIntExact(this.pairs.stream().filter(IntervalPair::overlaps).count());
 
     }
 
-    protected List<IntervalPair> parseIntervals(Readable input) {
-        try (Scanner scanner = new Scanner(input)) {
+    protected List<IntervalPair> parseIntervals(Reader reader) {
+        try (Scanner scanner = new Scanner(reader)) {
             List<IntervalPair> result = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();

@@ -1,21 +1,29 @@
+import java.io.Reader;
 import java.util.*;
 
 /**
  * @see <a href="https://adventofcode.com/2022/day/1">Day 1: Calorie Counting</a>
  */
-public class Day01 {
+public class Day01 implements Day<Integer> {
     protected final List<Integer> calories;
 
-    public Day01(Readable input) {
-        this.calories = parseCalories(input);
+    public Day01(Reader reader) {
+        this.calories = parseCalories(reader);
     }
 
-    public int solvePart1() {
+    @Override
+    public String getTitle() {
+        return "Calorie Counting";
+    }
+
+    @Override
+    public Integer solvePart1() {
         if (calories.isEmpty()) return 0;
         return Collections.max(calories);
     }
 
-    public int solvePart2() {
+    @Override
+    public Integer solvePart2() {
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(4);
         calories.forEach(n -> {
             minHeap.add(n);
@@ -26,8 +34,8 @@ public class Day01 {
         return minHeap.stream().mapToInt(Integer::intValue).sum();
     }
 
-    protected List<Integer> parseCalories(Readable input) {
-        try (Scanner scanner = new Scanner(input)) {
+    protected List<Integer> parseCalories(Reader reader) {
+        try (Scanner scanner = new Scanner(reader)) {
             ArrayList<Integer> result = new ArrayList<>();
             int acc = 0;
             while (scanner.hasNextLine()) {

@@ -1,3 +1,4 @@
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -6,14 +7,20 @@ import java.util.Set;
 /**
  * @see <a href="https://adventofcode.com/2022/day/3">Day 3: Rucksack Reorganization</a>
  */
-public class Day03 {
+public class Day03 implements Day<Integer> {
     protected final ArrayList<String> rucksacks;
 
-    public Day03(Readable input) {
-        this.rucksacks = parseRucksacks(input);
+    public Day03(Reader reader) {
+        this.rucksacks = parseRucksacks(reader);
     }
 
-    public int solvePart1() {
+    @Override
+    public String getTitle() {
+        return "Rucksack Reorganization";
+    }
+
+    @Override
+    public Integer solvePart1() {
         int result = 0;
         for (String knapsack : rucksacks) {
             int left = 0;
@@ -39,7 +46,8 @@ public class Day03 {
         return result;
     }
 
-    public int solvePart2() {
+    @Override
+    public Integer solvePart2() {
         int result = 0;
         for (int i = 0; i < rucksacks.size(); i += 3) {
             ArrayList<Set<Character>> rucksackSets = new ArrayList<>(3);
@@ -68,8 +76,8 @@ public class Day03 {
         }
     }
 
-    protected ArrayList<String> parseRucksacks(Readable input) {
-        Scanner scanner = new Scanner(input);
+    protected ArrayList<String> parseRucksacks(Reader reader) {
+        Scanner scanner = new Scanner(reader);
         ArrayList<String> result = new ArrayList<>();
         while (scanner.hasNext()) {
             result.add(scanner.nextLine());
