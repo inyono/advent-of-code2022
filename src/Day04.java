@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @see <a href="https://adventofcode.com/2022/day/4>Day 4: Camp Cleanup</a>
+ * @see <a href="https://adventofcode.com/2022/day/4">Day 4: Camp Cleanup</a>
  */
 public class Day04 {
     protected final List<IntervalPair> pairs;
@@ -24,10 +24,12 @@ public class Day04 {
 
     protected List<IntervalPair> parseIntervals(Readable input) {
         try (Scanner scanner = new Scanner(input)) {
-            ArrayList<IntervalPair> result = new ArrayList<>();
+            List<IntervalPair> result = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
+                if (parts.length != 2) throw new IllegalArgumentException("Invalid line: " + line);
                 Interval first = parseInterval(parts[0]);
                 Interval second = parseInterval(parts[1]);
                 result.add(new IntervalPair(first, second));
@@ -38,6 +40,7 @@ public class Day04 {
 
     protected Interval parseInterval(String input) {
         String[] parts = input.split("-");
+        if (parts.length != 2) throw new IllegalArgumentException("Invalid interval: " + input);
         return new Interval(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
     }
 
@@ -47,7 +50,7 @@ public class Day04 {
         }
 
         public boolean overlaps() {
-            return first.overlapsWith(second) || second.overlapsWith(first);
+            return first.overlapsWith(second);
         }
     }
 
@@ -57,7 +60,7 @@ public class Day04 {
         }
 
         public boolean overlapsWith(Interval other) {
-            return start <= other.start && other.start <= end;
+            return start <= other.end && other.start <= end;
         }
     }
 }
