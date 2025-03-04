@@ -18,4 +18,10 @@ class Day04Test {
         Day04 day04 = new Day04(new StringReader(example));
         assertEquals(2, day04.solvePart1());
     }
+
+    @Test
+    void solvePart2() {
+        Day04 day04 = new Day04(new StringReader(example));
+        assertEquals(4, day04.solvePart2());
+    }
 }

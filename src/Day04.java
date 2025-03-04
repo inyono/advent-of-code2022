@@ -17,6 +17,11 @@ public class Day04 {
         return Math.toIntExact(this.pairs.stream().filter(IntervalPair::containsRedundantInterval).count());
     }
 
+    public int solvePart2() {
+        return Math.toIntExact(this.pairs.stream().filter(IntervalPair::overlaps).count());
+
+    }
+
     protected List<IntervalPair> parseIntervals(Readable input) {
         try (Scanner scanner = new Scanner(input)) {
             ArrayList<IntervalPair> result = new ArrayList<>();
@@ -40,11 +45,19 @@ public class Day04 {
         public boolean containsRedundantInterval() {
             return first.containsFully(second) || second.containsFully(first);
         }
+
+        public boolean overlaps() {
+            return first.overlapsWith(second) || second.overlapsWith(first);
+        }
     }
 
     protected record Interval(int start, int end) {
         public boolean containsFully(Interval other) {
             return start <= other.start && other.end <= end;
+        }
+
+        public boolean overlapsWith(Interval other) {
+            return start <= other.start && other.start <= end;
         }
     }
 }
