@@ -30,7 +30,6 @@ public class DayRunner {
         }
     }
 
-
     /**
      * Runs all available day implementations.
      */

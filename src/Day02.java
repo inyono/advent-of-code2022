@@ -26,6 +26,7 @@ public class Day02 implements Day<Integer> {
         return "Rock Paper Scissors";
     }
 
+    @Override
     public Integer solvePart1() {
         int result = 0;
         for (Input input : inputs) {
@@ -37,6 +38,7 @@ public class Day02 implements Day<Integer> {
         return result;
     }
 
+    @Override
     public Integer solvePart2() {
         int result = 0;
         for (Input input : inputs) {
