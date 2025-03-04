@@ -77,11 +77,12 @@ public class Day03 implements Day<Integer> {
     }
 
     protected ArrayList<String> parseRucksacks(Reader reader) {
-        Scanner scanner = new Scanner(reader);
-        ArrayList<String> result = new ArrayList<>();
-        while (scanner.hasNext()) {
-            result.add(scanner.nextLine());
+        try (Scanner scanner = new Scanner(reader)) {
+            ArrayList<String> result = new ArrayList<>();
+            while (scanner.hasNext()) {
+                result.add(scanner.nextLine());
+            }
+            return result;
         }
-        return result;
     }
 }
