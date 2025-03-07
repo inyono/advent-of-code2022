@@ -13,6 +13,7 @@ public class DayFactory {
         factories.put(2, Day02::new);
         factories.put(3, Day03::new);
         factories.put(4, Day04::new);
+        factories.put(5, Day05::new);
     }
 
     public static Day<?> createDay(int dayNumber) throws FileNotFoundException {
